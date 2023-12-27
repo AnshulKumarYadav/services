@@ -1,15 +1,8 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-  Button,
-  Icon,
-} from '@chakra-ui/react';
-import React, { useState, useEffect } from 'react';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import React, { useState } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { Stack, Flex, Heading, Box, Text } from '@chakra-ui/react';
 
 function ClientQuotes() {
   const cards = [
@@ -28,96 +21,81 @@ function ClientQuotes() {
         'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       personName: 'Jane Smith',
     },
-    // Add more cards as needed
+    {
+      id: 3,
+      imageUrl: 'https://via.placeholder.com/150',
+      quote:
+        'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      personName: 'Jane Smith',
+    },
+    {
+      id: 4,
+      imageUrl: 'https://via.placeholder.com/150',
+      quote:
+        'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      personName: 'Jane Smith',
+    },
   ];
 
-  const [currentCard, setCurrentCard] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextCard = (currentCard + 1) % cards.length;
-      setCurrentCard(nextCard);
-    }, 3000); // Change the interval (in milliseconds) to adjust slide speed
-
-    return () => clearInterval(interval);
-  }, [currentCard, cards.length]);
-
-  const navigateTo = index => {
-    setCurrentCard(index);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    afterChange: current => setCurrentSlide(current),
+    // Add any additional settings or customizations here
   };
 
-  const nextCard = () => {
-    const nextIndex = (currentCard + 1) % cards.length;
-    setCurrentCard(nextIndex);
-  };
-
-  const prevCard = () => {
-    const prevIndex = (currentCard - 1 + cards.length) % cards.length;
-    setCurrentCard(prevIndex);
-  };
   return (
-    <Stack
-      id="home"
-      spacing={20}
-      height={'45rem'}
-      bgColor="#E0FAED"
-      padding={'5%'}
-    >
-      <Flex alignItems={'center'} justifyContent={'flex-start'}>
+    <Stack spacing={20} minHeight="45rem" bgColor="#E0FAED" padding={'5%'}>
+      <Flex alignItems="center" justifyContent="flex-start">
         <Heading fontSize={'30px'}>What My Client Says </Heading>
         <Box w={'200px'} h={'2px'} bgColor={'#07BB62'}></Box>
       </Flex>
-      <Flex
-        p={5}
-        boxShadow="md"
-        borderRadius="md"
-        bg="white"
-        w={'100%'}
-        h={'80%'}
-        mx="auto"
-        textAlign="center"
-        position="relative"
-        alignItems={'center'}
-      >
-        <img
-          src={cards[currentCard].imageUrl}
-          alt="Card"
-          style={{ maxWidth: '100%', height: '100%' }}
-        />
-        <Box mt={4} p={10}>
-          <Text fontSize="lg" fontStyle="italic">
-            <span style={{color:"#07BB62",fontSize:"30px"}}>"</span>{cards[currentCard].quote}<span style={{color:"#07BB62",fontSize:"30px"}}>"</span>
-          </Text>
 
-          <Text mt={2} fontWeight="bold" textAlign={'right'}>
-            - {cards[currentCard].personName}
-          </Text>
-        </Box>
-        <Button
-          onClick={prevCard}
-          position="absolute"
-          top="50%"
-          left="10px"
-          transform="translateY(-50%)"
-          variant="outline"
-          size="sm"
-          display={currentCard === 0 ? 'none' : 'block'}
-        >
-          <IoIosArrowBack />
-        </Button>
-        <Button
-          onClick={nextCard}
-          position="absolute"
-          top="50%"
-          right="10px"
-          transform="translateY(-50%)"
-          variant="outline"
-          size="sm"
-          display={currentCard === cards.length - 1 ? 'none' : 'block'}
-        >
-          <IoIosArrowForward />
-        </Button>
-      </Flex>
+      <Slider {...settings}>
+        {cards.map(card => (
+          <div key={card.id}>
+            <Box
+              borderRadius="10px"
+              boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
+              minWidth="150px"
+              bgColor={'#ffffff'}
+              p={5}
+            >
+              <Flex justifyContent={'space-between'}>
+                <Flex width={'60%'} alignItems={'center'}>
+                  <img
+                    src={card.imageUrl}
+                    alt={card.title}
+                    style={{ borderRadius: '50%', height:"60%", backgroundColor:"#ff8200" }}
+                    
+                  />
+                </Flex>
+                <Stack mt={4} p={5} width={"90%"}>
+                  <Text fontSize="lg" fontStyle="italic">
+                    <span style={{ color: '#07BB62', fontSize: '30px' }}>
+                      "
+                    </span>
+                    {card.quote}
+                    <span style={{ color: '#07BB62', fontSize: '30px' }}>
+                      "
+                    </span>
+                  </Text>
+                  <Text mt={2} fontWeight="bold" textAlign="right">
+                    - {card.personName}
+                  </Text>
+                </Stack>
+              </Flex>
+            </Box>
+          </div>
+        ))}
+      </Slider>
     </Stack>
   );
 }

@@ -5,9 +5,9 @@ import Home from './Components/Home';
 import About from './Components/About';
 import ClientQuotes from './Components/ClientQuotes';
 import Contacts from './Components/Contacts';
-import Footer from './Components/Footer';
 import Work from './Components/Work';
 import Services from './Components/Services';
+import FAQ from './Components/FAQ';
 
 function App() {
   return (
@@ -18,8 +18,8 @@ function App() {
         <Work/>
         <Services/>
         <ClientQuotes/>
+        <FAQ/>
         <Contacts/>
-        <Footer/>
       </Router>
   );
 }

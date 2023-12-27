@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Flex,
   Box,
@@ -6,20 +6,16 @@ import {
   Text,
   IconButton,
   useBreakpointValue,
-  Drawer,
-  Image,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
   Button,
+  Image,
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { HamburgerIcon } from '@chakra-ui/icons';
-import logo from 'C:/Users/risha/Desktop/Freelance Website/personal-freelance-web/src/assets/AY.png';
+import logo from '../assets/AY.png';
+import logo2 from '../assets/AY2.png';
 
 const Navbar = () => {
+  const [isTop, setIsTop] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const navItemsDisplay = useBreakpointValue({ base: 'none', md: 'flex' });
   const showContactButton = useBreakpointValue({ base: false, md: true });
@@ -28,22 +24,51 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 50) {
+        setIsTop(false);
+      } else {
+        setIsTop(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <Flex
       as="nav"
       align="center"
       justify="space-between"
       padding="0.5rem 2rem"
-      bg="white"
-      boxShadow="rgba(0, 0, 0, 0.1) 0px 4px 12px"
-      wrap="wrap"
+      bg={isTop ? 'transparent' : 'white'}
+      boxShadow={isTop ? 'none' : 'rgba(0, 0, 0, 0.1) 0px 4px 12px'}
+      position={isTop ? 'absolute' : 'sticky'}
+      top={0}
+      left={0}
+      right={0}
+      zIndex={999}
+      transition="background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out"
     >
       {/* Logo */}
-      <Box>
-        <Link as={ReactRouterLink} to="/" fontWeight="bold">
-          <Image src={logo} boxSize={['40px', '50px']} />
-        </Link>
-      </Box>
+      {isTop ? (
+        <Box>
+          <Link as={ReactRouterLink} to="/" fontWeight="bold">
+            <Image src={logo2} boxSize={['40px', '50px']} />
+          </Link>
+        </Box>
+      ) : (
+        <Box>
+          <Link as={ReactRouterLink} to="/" fontWeight="bold">
+            <Image src={logo} boxSize={['40px', '50px']} />
+          </Link>
+        </Box>
+      )}
 
       {/* Hamburger icon for small displays */}
       <IconButton
@@ -53,35 +78,6 @@ const Navbar = () => {
         variant="outline"
         aria-label="Open Navigation"
       />
-
-      {/* Side navigation for small displays */}
-      <Drawer placement="right" onClose={toggleDrawer} isOpen={isOpen}>
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Menu</DrawerHeader>
-            <DrawerBody>
-              <Flex direction="column">
-                <NavItem to="#home" onClick={toggleDrawer}>
-                  Home
-                </NavItem>
-                <NavItem to="#about" onClick={toggleDrawer}>
-                  About
-                </NavItem>
-                <NavItem to="#work" onClick={toggleDrawer}>
-                  Work
-                </NavItem>
-                <NavItem to="#services" onClick={toggleDrawer}>
-                  Services
-                </NavItem>
-                <NavItem to="#statistics" onClick={toggleDrawer}>
-                  Statistics
-                </NavItem>
-              </Flex>
-            </DrawerBody>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
 
       {/* Navigation Links */}
       <Flex align="center" display={navItemsDisplay}>
@@ -93,10 +89,12 @@ const Navbar = () => {
       </Flex>
       {showContactButton && (
         <Button
-          colorScheme="teal"
-          variant="outline"
+          bgColor="#2B2B2B"
+          color={'white'}
+          variant="solid"
           to="/contact"
           mt={{ base: 4, md: 0 }}
+          _hover={{ bgColor: '#1C1C1C' }}
         >
           Contact
         </Button>
@@ -114,10 +112,11 @@ const NavItem = ({ to, children, onClick }) => {
       px={2}
       py={1}
       rounded="md"
-      _hover={{ textDecoration: 'none', bg: 'blue.300', color: 'white' }}
+      _hover={{ textDecoration: 'none' }}
       mr={{ base: 0, md: 2 }}
       mt={{ base: 2, md: 0 }}
       onClick={onClick}
+      fontWeight={'bold'}
     >
       {children}
     </Text>

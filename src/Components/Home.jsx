@@ -1,55 +1,43 @@
-import { Box, Button, Flex, Stack } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Stack } from '@chakra-ui/react';
 import React from 'react';
-import image from '../assets/myfiverrprofileimage.png';
+import gif from '../assets/gifpw.gif';
+
 const Home = () => {
   return (
-    <Stack
+    <Flex
       id="home"
-      height={'45rem'}
-      alignItems={'center'}
-      backgroundImage="radial-gradient(circle at 0% 0%, #80cba5, #f1edc6, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)"
+      height="45rem"
+      alignItems="center"
+      background="#1DCD8D"
+      p={10}
+      position="relative"
+      justify="space-between" // To align content and background GIF
     >
-      <Flex
-        width={'80%'}
-        height={'80%'}
-        margin={'auto'}
-        justifyContent={'space-around'}
-      >
-        <Box width={'38%'}>
-          <h3 style={{ color: '#07BB62', fontSize: '40px' }}>Hii I'm</h3>
-          <h1 style={{ fontSize: '80px', fontFamily: 'sans-serif' }}>
-            Anshul Kumar Yadav
-          </h1>
-          <p style={{ fontSize: '20px' }}>
-            Driven and adaptable aspiring freelancer in web development and
-            design, committed to crafting innovative and user-centric digital
-            solutions.
-          </p>
-          <Button
-            marginTop={'10'}
-            bg={'#07BB62'}
-            variant="solid"
-            color={'white'}
-            _hover={{ bg: '#04A656' }}
-            to="#contact"
-          >
-            Contact Me
-          </Button>
-        </Box>
-        <Box>
-          <img
-            src={image}
-            alt="Anshul Photo"
-            style={{
-              borderRadius: '50%',
-              backgroundColor: '#E0FAED',
-              margin: 'auto',
-              // marginTop:"10%"
-            }}
-          />
-        </Box>
-      </Flex>
-    </Stack>
+      <Stack p={10} spacing={5} zIndex={1} maxWidth="50%"> {/* Adjust width as needed */}
+        <Heading fontSize={60} color="white">
+          Experience Excellence With Me.
+        </Heading>
+        <Heading fontSize={20} color="white">
+          Innovative Solutions for Your Digital Success
+        </Heading>
+        <Button width={'fit-content'} variant="solid" bgColor="#2B2B2B" color="#ffffff" _hover={{bgColor:"#1C1C1C"}}>
+          Explore Services
+        </Button>
+      </Stack>
+      <Box
+        position="absolute"
+        top={0}
+        right={0} // Align the GIF to the right
+        width="50%" // Adjust the width as needed
+        height="100%"
+        zIndex={0} // Place behind other elements but above the Flex background
+        style={{
+          backgroundImage: `url(${gif})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+        }}
+      ></Box>
+    </Flex>
   );
 };
 
