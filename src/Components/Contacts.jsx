@@ -37,7 +37,7 @@ const Contacts = () => {
           name: name,
           email: email,
           subject: subject,
-          description: description,
+          message: description,
         },
       }),
     })
