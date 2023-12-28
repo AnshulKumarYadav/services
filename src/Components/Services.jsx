@@ -27,7 +27,7 @@ const Services = () => {
     {
       id: 1,
       imgurl: firstimg,
-      title: 'Website Design'
+      title: 'Website Design',
     },
     {
       id: 2,
@@ -67,12 +67,12 @@ const Services = () => {
     {
       id: 9,
       imgurl: ninthimg,
-      title: 'Website Customization',
+      title: 'Speed Optimization',
     },
     {
       id: 10,
       imgurl: tenthimg,
-      title: 'Speed Optimization',
+      title: 'Website Customization',
     },
     {
       id: 11,
@@ -86,8 +86,8 @@ const Services = () => {
     },
   ];
   return (
-    <Box id='Services' padding={10}>
-      <Flex alignItems='center' justifyContent='flex-start' gap={2}>
+    <Box id='Services' padding={'5%'}>
+      <Flex alignItems='center' justifyContent='flex-start' gap={2} mb={20}>
         <Heading fontSize='30px'>Services</Heading>
         <Box w='200px' h='2px' bgColor='#07BB62'></Box>
       </Flex>
@@ -109,7 +109,7 @@ const Services = () => {
               backgroundRepeat='no-repeat'
               textAlign='center'
             >
-              <h1 style={{ fontWeight: 'bold' }}>{card.title}</h1>
+              <Heading opacity={'0.7'} borderRadius={'10px'} bgColor={'black'} padding={'0.5'} color={'#ffffff'} textAlign={'center'} fontSize={['25px','20px','25px','30px']}>{card.title}</Heading>
             </Box>
           </GridItem>
         ))}

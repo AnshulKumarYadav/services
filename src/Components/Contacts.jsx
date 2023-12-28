@@ -19,7 +19,7 @@ const Contacts = () => {
       alignItems="center"
       bgColor="#000000"
       padding={['2rem', '4rem', '6rem']}
-      flexWrap={['wrap', 'wrap', 'nowrap']}
+      flexWrap={['wrap', 'wrap','wrap','nowrap']}
     >
       <Box
         flex={['0 0 100%', '0 0 100%', '0 0 45%']}
