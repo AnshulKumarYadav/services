@@ -1,7 +1,7 @@
-import { Button, Flex, IconButton } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import React from 'react';
-import { SiUpwork, SiFiverr, SiLinkedin, SiGmail, SiPhone } from 'react-icons/si';
-import { ImPhone } from "react-icons/im";
+import { SiUpwork, SiFiverr, SiLinkedin, SiGmail } from 'react-icons/si';
+import { ImPhone } from 'react-icons/im';
 
 const SocialCard = () => {
   const cards = [
@@ -26,21 +26,22 @@ const SocialCard = () => {
       link: 'mailto:rishabhyadav3602@gmail.com',
     },
     {
-      id: 4,
+      id: 5,
       iconName: <ImPhone color="#11B80C" />,
       link: 'tel:+917060476249',
     },
   ];
+
   return (
-    <Flex gap={10} mt={10} alignItems={'center'}>
+    <Flex gap={[4, 4, 6]} mt={[6, 6, 10]} alignItems="center">
       {cards.map((card, index) => (
-        <a href={card.link} target='blank'>
+        <a href={card.link} target="_blank" key={card.id} rel="noopener noreferrer">
           <Button
-            borderRadius={'60%'}
-            bgColor={'#ffffff'}
-            boxShadow={'rgba(0, 0, 0, 0.16) 0px 1px 4px'}
+            borderRadius="50%"
+            bgColor="#ffffff"
+            boxShadow="rgba(0, 0, 0, 0.16) 0px 1px 4px"
             _hover={{
-              boxShadow:"0px 0px 44px -3px rgba(7,187,97,1);"
+              boxShadow: '0px 0px 44px -3px rgba(7,187,97,1)',
             }}
           >
             {card.iconName}

@@ -74,7 +74,7 @@ const Services = () => {
   };
 
   return (
-    <Box bgColor="#E0FAED" padding={'5%'}>
+    <Box id='Work' bgColor="#E0FAED" padding={'5%'}>
       <Flex alignItems="center" justifyContent="flex-start" gap={2} mb={20}>
         <Heading fontSize="30px">Work</Heading>
         <Box w="200px" h="2px" bgColor="#07BB62"></Box>

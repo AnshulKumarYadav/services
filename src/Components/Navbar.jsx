@@ -8,6 +8,15 @@ import {
   useBreakpointValue,
   Button,
   Image,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  useDisclosure,
+  Stack,
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { HamburgerIcon } from '@chakra-ui/icons';
@@ -16,13 +25,11 @@ import logo2 from '../assets/AY2.png';
 
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+
   const navItemsDisplay = useBreakpointValue({ base: 'none', md: 'flex' });
   const showContactButton = useBreakpointValue({ base: false, md: true });
-
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,19 +80,37 @@ const Navbar = () => {
       {/* Hamburger icon for small displays */}
       <IconButton
         display={{ base: 'flex', md: 'none' }}
-        onClick={toggleDrawer}
+        ref={btnRef}
+        onClick={onOpen}
         icon={<HamburgerIcon />}
-        variant="outline"
-        aria-label="Open Navigation"
       />
+
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Menu</DrawerHeader>
+          <Stack spacing={4} alignItems={'center'}>
+            <NavItem to="#Home">Home</NavItem>
+            <NavItem to="#About">About</NavItem>
+            <NavItem to="#Work">Work</NavItem>
+            <NavItem to="#Services">Services</NavItem>
+          </Stack>
+          <DrawerBody></DrawerBody>
+        </DrawerContent>
+      </Drawer>
 
       {/* Navigation Links */}
       <Flex align="center" display={navItemsDisplay}>
-        <NavItem to="#home">Home</NavItem>
-        <NavItem to="#about">About</NavItem>
-        <NavItem to="#work">Work</NavItem>
-        <NavItem to="#services">Services</NavItem>
-        <NavItem to="#statistics">Statistics</NavItem>
+        <NavItem to="#Home">Home</NavItem>
+        <NavItem to="#About">About</NavItem>
+        <NavItem to="#Work">Work</NavItem>
+        <NavItem to="#Services">Services</NavItem>
       </Flex>
       {showContactButton && (
         <Button
@@ -96,7 +121,7 @@ const Navbar = () => {
           mt={{ base: 4, md: 0 }}
           _hover={{ bgColor: '#1C1C1C' }}
         >
-          Contact
+          <a href="#Contacts">Contact</a>
         </Button>
       )}
     </Flex>
@@ -104,21 +129,18 @@ const Navbar = () => {
 };
 
 // NavItem component
-const NavItem = ({ to, children, onClick }) => {
+const NavItem = ({ to, children }) => {
   return (
     <Text
-      as={ReactRouterLink}
-      to={to}
       px={2}
       py={1}
       rounded="md"
       _hover={{ textDecoration: 'none' }}
       mr={{ base: 0, md: 2 }}
       mt={{ base: 2, md: 0 }}
-      onClick={onClick}
       fontWeight={'bold'}
     >
-      {children}
+      <a href={to}>{children}</a>
     </Text>
   );
 };

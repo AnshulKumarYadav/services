@@ -31,7 +31,7 @@ const FAQ = () => {
     },
   ];
   return (
-    <Stack height={'35rem'} padding={'5%'}>
+    <Stack height={'auto'} padding={'5%'}>
       <Flex alignItems="center" justifyContent="flex-start" gap={2} mb={20}>
         <Heading fontSize="30px">FAQ</Heading>
         <FaRegQuestionCircle fontSize={'20px'} />
