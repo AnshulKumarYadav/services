@@ -22,6 +22,12 @@
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "https://AnshulKumarYadav.github.io/services",
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+},
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -42,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
